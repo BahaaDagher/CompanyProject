@@ -1,0 +1,113 @@
+<app-loading [isLoading]="(loadingService.loading$ | async) ?? false"></app-loading>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="w-full max-w-md p-8 space-y-6 bg-white shadow-md rounded-lg">
+    <h2 class="text-3xl font-bold text-center text-gray-700">Register</h2>
+
+    <!-- Notification -->
+    <div *ngIf="notificationMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md" role="alert">
+      {{ notificationMessage }}
+    </div>
+    <div *ngIf="errorMessages.length > 0" class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded-md" role="alert">
+      <ul>
+        <li *ngFor="let error of errorMessages">{{ error }}</li>
+      </ul>
+    </div>
+
+    <form class="space-y-6" (ngSubmit)="onRegister()" >
+      <!-- First Name Input -->
+      <div>
+        <label for="first-name" class="block text-sm font-medium text-gray-700">First Name</label>
+        <input
+          [(ngModel)]="newRegister.firstName"
+          type="text"
+          id="first-name"
+          name="firstName"
+          required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter your first name"
+        />
+       
+      </div>
+
+      <!-- Last Name Input -->
+      <div>
+        <label for="last-name" class="block text-sm font-medium text-gray-700">Last Name</label>
+        <input
+          [(ngModel)]="newRegister.lastName"
+          type="text"
+          id="last-name"
+          name="lastName"
+          required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter your last name"
+        />
+     
+      </div>
+
+      <!-- Username Input -->
+      <div>
+        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+        <input
+          [(ngModel)]="newRegister.userName"
+          type="text"
+          id="username"
+          name="userName"
+          required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter your username"
+        />
+       
+      </div>
+
+      <!-- Email Input -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          [(ngModel)]="newRegister.email"
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter your email"
+          #emailInput="ngModel"
+        />
+       
+      </div>
+
+      <!-- Password Input -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <input
+          [(ngModel)]="newRegister.password"
+          type="password"
+          id="password"
+          name="password"
+          required
+          minlength="6"
+          class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter your password"
+        />
+       
+      </div>
+
+      <!-- Register Button -->
+      <div>
+        <button
+          
+          type="submit"
+          class="w-full px-4 py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Register
+        </button>
+      </div>
+    </form>
+
+    <div class="text-center text-sm text-gray-600">
+      <p>
+        Already have an account?
+        <a routerLink="/login" class="text-blue-500 hover:text-blue-600">Login</a>
+      </p>
+    </div>
+  </div>
+</div>

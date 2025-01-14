@@ -1,0 +1,94 @@
+<nav class="bg-gray-800">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <!-- Logo and Navigation Links -->
+      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+        <div class="flex shrink-0 items-center">
+          <img
+            class="h-8 w-auto"
+            src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
+            alt="Your Company"
+          />
+        </div>
+        <div>
+          <div class="flex space-x-4">
+            <a
+              routerLink="/employees"
+              routerLinkActive="bg-gray-900"
+              class="rounded-md px-3 py-2 text-sm font-medium text-white"
+              aria-current="page"
+            >
+              Employees
+            </a>
+            <a
+              routerLink="/departments"
+              routerLinkActive="bg-gray-900"
+              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >
+              Departments
+            </a>
+            <a
+              routerLink="/projects"
+              routerLinkActive="bg-gray-900"
+              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >
+              Projects
+            </a>
+            <a
+              *ngIf="isAdmin"
+              routerLink="/users"
+              routerLinkActive="bg-gray-900"
+              class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >
+              Users
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Login, Register, and Logout -->
+      <div class="ml-auto flex space-x-4 items-center">
+        <!-- Show Login and Register if not authenticated -->
+        <ng-container *ngIf="!isAuthenticated; else loggedIn">
+          <a
+            routerLink="/login"
+            class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 border border-gray-300 hover:bg-gray-700 hover:text-white hover:border-white"
+          >
+            Login
+          </a>
+          <a
+            routerLink="/register"
+            class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 border border-gray-300 hover:bg-gray-700 hover:text-white hover:border-white"
+          >
+            Register
+          </a>
+        </ng-container>
+
+        <!-- Show Logout if authenticated -->
+        <ng-template #loggedIn>
+          <p class="text-sm font-medium text-gray-300">Welcome, {{ userName }}</p>
+          <button
+            (click)="onLogout()"
+            class="flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-300 border border-gray-300 hover:bg-gray-700 hover:text-white hover:border-white"
+          >
+            <svg
+              class="h-5 w-5 mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5"
+              />
+            </svg>
+            Logout
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</nav>

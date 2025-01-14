@@ -1,0 +1,49 @@
+<app-loading [isLoading]="(loadingService.loading$ | async) ?? false"></app-loading>
+<div class="container mx-auto mt-4">
+  <!-- Conditional Content Rendering -->
+  <ng-container *ngIf="errorMessages.length; else usersContent">
+    <!-- Error Messages Section -->
+    <div class="p-4 mb-4 text-red-700 bg-red-100 rounded-lg">
+      <p *ngFor="let message of errorMessages">
+        {{ message }}
+      </p>
+    </div>
+  </ng-container>
+
+  <ng-template #usersContent>
+    <ng-container *ngIf="users.length">
+      <!-- Users Table -->
+      <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">Index</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">First Name</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">Last Name</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">User Name</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">Email</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700 text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; let i = index" class="border-b">
+            <td class="px-4 py-2">{{ i + 1 }}</td>
+            <td class="px-4 py-2">{{ user.firstName }}</td>
+            <td class="px-4 py-2">{{ user.lastName }}</td>
+            <td class="px-4 py-2">{{ user.userName }}</td>
+            <td class="px-4 py-2">{{ user.email }}</td>
+            <td class="px-4 py-2 text-center">
+              <button (click)="addRole(user.id)"
+                class="px-4 py-2 mx-1 text-white bg-blue-500 hover:bg-blue-700 rounded-md text-sm">
+                Add Role
+              </button>
+              <button (click)="onDeleteUser(user.id)"
+                class="px-4 py-2 mx-1 text-white bg-red-500 hover:bg-red-700 rounded-md text-sm">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </ng-template>
+</div>

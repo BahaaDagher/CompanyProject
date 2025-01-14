@@ -1,0 +1,54 @@
+<app-loading [isLoading]="(loadingService.loading$ | async) ?? false"></app-loading>
+<div class="container mx-auto mt-4">
+  <!-- Conditional Content Rendering -->
+  <ng-container *ngIf="errorMessages.length; else departmentsContent">
+    <!-- Error Messages Section -->
+    <div class="p-4 mb-4 text-red-700 bg-red-100 rounded-lg">
+      <p *ngFor="let message of errorMessages">
+        {{ message }}
+      </p>
+    </div>
+  </ng-container>
+
+  <ng-template #departmentsContent>
+    <ng-container *ngIf="departments.length">
+      <div class="mb-4">
+        <button
+          routerLink="add"
+          class="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded-md">
+          Add New Department
+        </button>
+      </div>
+
+      <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">Index</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">Name</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700 text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let department of departments; let i = index" class="border-b">
+            <td class="px-4 py-2">{{ i + 1 }}</td>
+            <td class="px-4 py-2">{{ department.name }}</td>
+            <td class="px-4 py-2 text-center">
+              <a [routerLink]="['details', department.id]"
+                class="px-4 py-2 mx-1 text-white bg-blue-500 hover:bg-blue-700 rounded-md text-sm">
+                Details
+              </a>
+              <a [routerLink]="['edit', department.id]"
+                class="px-4 py-2 mx-1 text-white bg-yellow-500 hover:bg-yellow-700 rounded-md text-sm">
+                Edit
+              </a>
+              <button (click)="onDeleteDepartment(department.id)"
+                class="px-4 py-2 mx-1 text-white bg-red-500 hover:bg-red-700 rounded-md text-sm">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </ng-template>
+</div>

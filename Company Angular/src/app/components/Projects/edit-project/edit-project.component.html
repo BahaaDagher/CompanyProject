@@ -1,0 +1,81 @@
+<app-loading [isLoading]="(loadingService.loading$ | async) ?? false"></app-loading>
+<div *ngIf="errorMessages.length" class="p-4 mb-4 text-red-700 bg-red-100 rounded-lg">
+  <p *ngFor="let message of errorMessages">
+    - {{ message }}
+  </p>
+</div>
+
+<div *ngIf="project" class="mb-4">
+  <h2 class="text-xl font-semibold mb-4">Edit Project</h2>
+  <form (ngSubmit)="onUpdateProject()" class="space-y-4">
+    <!-- Project Name Field -->
+    <div class="flex flex-col">
+      <label for="name" class="text-sm font-medium text-gray-700">Project Name</label>
+      <input
+        id="name"
+        [(ngModel)]="project.name"
+        name="name"
+        type="text"
+        class="px-4 py-2 border border-gray-300 rounded-md"
+        required
+      />
+    </div>
+
+    <!-- Employee Selection -->
+    <div>
+      <label for="employeeSelect" class="text-sm font-medium text-gray-700">Add Employees</label>
+      <select
+        id="employeeSelect"
+        [(ngModel)]="selectedEmployeeId"
+        name="employeeSelect"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md"
+      >
+        <option [ngValue]="null">Select an Employee</option>
+        <option *ngFor="let employee of employees" [ngValue]="employee.id">
+          {{ employee.name }}
+        </option>
+      </select>
+      <button
+        type="button"
+        (click)="onAddEmployee()"
+        class="mt-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+      >
+        Add Employee
+      </button>
+    </div>
+
+   <!-- Assigned Employees Section -->
+  <div *ngIf="selectedEmployees.length > 0" class="mt-4">
+    <h3 class="text-lg font-medium">Assigned Employees</h3>
+    <ul class="space-y-2">
+      <li *ngFor="let employee of selectedEmployees" class="flex justify-between items-center border-b border-gray-300 pb-1">
+        <span>{{ employee.name }}</span>
+        <button
+          type="button"
+          (click)="onRemoveEmployee(employee.id)"
+          class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
+        >
+          Remove
+        </button>
+      </li>
+    </ul>
+  </div>
+
+
+    <button
+      type="submit"
+      class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md mt-4"
+    >
+      Update Project
+    </button>
+  </form>
+</div>
+
+<div class="flex mt-4">
+  <button
+    (click)="router.navigate(['/projects'])"
+    class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md"
+  >
+    Back to List
+  </button>
+</div>

@@ -1,0 +1,59 @@
+<app-loading [isLoading]="(loadingService.loading$ | async) ?? false"></app-loading>
+<div class="container mx-auto mt-4">
+  <!-- Conditional Content Rendering -->
+  <ng-container *ngIf="errorMessage; else employeesContent">
+    <!-- Error Message Section -->
+    <div class="p-4 mb-4 text-red-700 bg-red-100 rounded-lg">
+      {{ errorMessage }}
+    </div>
+  </ng-container>
+
+  <ng-template #employeesContent>
+    <ng-container *ngIf="employees.length">
+      <div class="mb-4">
+        <button
+          routerLink="add"
+          class="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded-md">
+          Add New Employee
+        </button>
+      </div>
+
+      <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">Index</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">Name</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">SSN</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700">Salary</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-700 text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees; let i = index" class="border-b">
+            <td class="px-4 py-2">{{ i + 1 }}</td>
+            <td class="px-4 py-2">{{ employee.name }}</td>
+            <td class="px-4 py-2">{{ employee.ssn }}</td>
+            <td class="px-4 py-2">{{ employee.salary | currency }}</td>
+            <td class="px-4 py-2 text-center">
+              <a
+                [routerLink]="['details', employee.id]"
+                class="px-4 py-2 mx-1 text-white bg-blue-500 hover:bg-blue-700 rounded-md text-sm">
+                Details
+              </a>
+              <a
+                [routerLink]="['edit', employee.id]"
+                class="px-4 py-2 mx-1 text-white bg-yellow-500 hover:bg-yellow-700 rounded-md text-sm">
+                Edit
+              </a>
+              <button
+                (click)="onDeleteEmployee(employee.id)"
+                class="px-4 py-2 mx-1 text-white bg-red-500 hover:bg-red-700 rounded-md text-sm">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </ng-template>
+</div>

@@ -1,0 +1,53 @@
+<app-loading [isLoading]="(loadingService.loading$ | async) ?? false"></app-loading>
+<div *ngIf="errorMessage" class="p-4 mb-4 text-red-700 bg-red-100 rounded-lg">
+  {{ errorMessage }}
+</div>
+<div *ngIf="employee; " class="p-8 max-w-xl mx-auto bg-gray-50 shadow-lg rounded-lg">
+    <h1 class="text-2xl font-extrabold text-indigo-600 mb-6 text-center">Employee Details</h1>
+    
+    <div class="mb-4">
+      <p class="text-lg font-semibold text-gray-700">
+        <span class="block text-sm font-medium text-indigo-500">Name</span>
+        {{ employee.name }}
+      </p>
+    </div>
+  
+    <div class="mb-4">
+      <p class="text-lg font-semibold text-gray-700">
+        <span class="block text-sm font-medium text-indigo-500">SSN</span>
+        {{ employee.ssn }}
+      </p>
+    </div>
+  
+    <div class="mb-6">
+      <p class="text-lg font-semibold text-gray-700">
+        <span class="block text-sm font-medium text-indigo-500">Salary</span>
+        {{ employee.salary | currency }}
+      </p>
+    </div>
+    <div class="mb-4">
+      <p class="text-lg font-semibold text-gray-700">
+        <span class="block text-sm font-medium text-indigo-500">SSN</span>
+        {{ employee.ssn }}
+      </p>
+    </div>
+    <div class="mb-4">
+      <p class="text-lg font-semibold text-gray-700">
+        <span class="block text-sm font-medium text-indigo-500">Department Id</span>
+        <a
+          [routerLink]="['/departments/details', employee.departmentId]"
+          class="text-indigo-600 hover:underline cursor-pointer">
+          {{ employee.departmentId }}
+        </a>
+      </p>
+    </div>
+  
+    <div class="flex justify-center">
+      <button
+        (click)="router.navigate(['/employees'])"
+        class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md transition duration-200">
+        Employees List
+      </button>
+    </div>
+</div>
+  
